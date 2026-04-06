@@ -25,7 +25,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v6.0.0
       with:
         aws-region: us-east-1
-        role-to-assume: arn:aws:iam::654654554686:role/workshop-march-github-role
+        role-to-assume: arn:aws:iam::743207691822:role/workshop-march-github-role
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -35,14 +35,14 @@ jobs:
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
-        docker build -f ./dvn-workshop-apps/backend/YoutubeLiveApp/Dockerfile \
+        docker build -f ./apps/backend/YoutubeLiveApp/Dockerfile \
             -t $REGISTRY/$BACKEND_REPOSITORY:$IMAGE_TAG \
-            ./dvn-workshop-apps/backend/YoutubeLiveApp
+            ./apps/backend/YoutubeLiveApp
         docker push $REGISTRY/$BACKEND_REPOSITORY:$IMAGE_TAG
 
     - uses: actions/checkout@v6
       with:
-        repository: 'kenerry-serain/dvn-workshop-mar-dia-2-gitops'
+        repository: 'cleitonbarbosa21/argocd'
         token: ${{ secrets.PAT }}
 
     - name: Kustomize Edit
@@ -67,7 +67,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v6.0.0
       with:
         aws-region: us-east-1
-        role-to-assume: arn:aws:iam::654654554686:role/workshop-march-github-role
+        role-to-assume: arn:aws:iam::743207691822:role/workshop-march-github-role
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -77,14 +77,14 @@ jobs:
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
-        docker build -f ./dvn-workshop-apps/frontend/youtube-live-app/Dockerfile \
+        docker build -f ./apps/frontend/youtube-live-app/Dockerfile \
             -t $REGISTRY/$FRONTEND_REPOSITORY:$IMAGE_TAG \
-            ./dvn-workshop-apps/frontend/youtube-live-app
+            ./apps/frontend/youtube-live-app
         docker push $REGISTRY/$FRONTEND_REPOSITORY:$IMAGE_TAG
 
     - uses: actions/checkout@v6
       with:
-        repository: 'kenerry-serain/dvn-workshop-mar-dia-2-gitops'
+        repository: 'cleitonbarbosa21/argocd'
         token: ${{ secrets.PAT }}
 
     - name: Kustomize Edit
