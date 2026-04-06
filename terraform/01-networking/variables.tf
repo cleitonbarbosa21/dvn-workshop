@@ -13,7 +13,7 @@ variable "assume_role" {
   })
 
   default = {
-    arn    = "<YOUR_ROLE_ARN>"
+    arn    = "arn:aws:iam::743207691822:role/admin-role"
     region = "us-east-1"
   }
 }
